@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#ff7a00">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ROG Booster">
+  
+  <!-- Android Specific -->
+  <meta name="mobile-web-app-capable" content="yes">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  
+  <title>ROG Booster</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Screen 0: Login Screen -->
+  <div id="loginScreen" class="screen active">
+    <div class="container">
+      <div class="animated-bg">
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+      </div>
+      
+      <div class="login-content">
+        <div class="login-header">
+          <div class="login-logo">
+            <div class="login-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h1 class="login-title">ROG Booster</h1>
+            <p class="login-subtitle">Android Game Optimizer</p>
+          </div>
+        </div>
+        
+        <div class="login-form">
+          <div class="input-group">
+            <div class="input-icon">
+              <i class="fas fa-key"></i>
+            </div>
+            <input type="password" id="loginKey" class="login-input" placeholder="Enter Access Key" autocomplete="off">
+            <div class="input-status" id="keyStatus">
+              <i class="fas fa-lock"></i>
+            </div>
+          </div>
+          
+          <div class="login-info">
+            <p><i class="fas fa-info-circle"></i> Contact admin for access key</p>
+          </div>
+          
+          <button class="login-btn" onclick="checkLogin()">
+            <div class="btn-content">
+              <span class="btn-text">ENTER</span>
+              <div class="btn-arrow">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+            <div class="btn-pulse"></div>
+          </button>
+          
+          <div class="login-footer">
+            <p class="version">Version 2.0 • ROG Game Booster</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 1: Main Menu -->
+  <div id="mainScreen" class="screen">
+    <div class="container">
+      <div class="animated-bg">
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+      </div>
+      
+      <div class="content">
+        <div class="header-glitch">
+          <h1 class="title glitch" data-text="ROG Booster">ROG Booster</h1>
+          <div class="version-info">
+            <p class="subtitle">Android 10 - 14</p>
+            <p class="author">by Kutoo • Lifetime Access</p>
+          </div>
+        </div>
+        
+        <div class="menu-cards">
+          <div class="card" onclick="showScreen('settingsScreen')">
+            <div class="card-icon">
+              <i class="fas fa-cog"></i>
+            </div>
+            <div class="card-content">
+              <h3>Settings</h3>
+              <p>Configure system parameters</p>
+            </div>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+          
+          <div class="card" onclick="showScreen('resolutionScreen')">
+            <div class="card-icon" style="background: linear-gradient(135deg, #00ff88, #00ccff);">
+              <i class="fas fa-expand"></i>
+            </div>
+            <div class="card-content">
+              <h3>Resolution & DPI</h3>
+              <p>Change screen resolution and DPI</p>
+            </div>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+          
+          <div class="card" onclick="showScreen('gameMonitorScreen')">
+            <div class="card-icon" style="background: linear-gradient(135deg, #ff0058, #ff7a00);">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="card-content">
+              <h3>Game Monitor</h3>
+              <p>Monitor FPS, CPU, GPU, RAM</p>
+            </div>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+          
+          <div class="card" onclick="showNotification('System UI restarted successfully')">
+            <div class="card-icon">
+              <i class="fas fa-redo"></i>
+            </div>
+            <div class="card-content">
+              <h3>Restart System UI</h3>
+              <p>Reload system interface</p>
+            </div>
+          </div>
+          
+          <div class="card" onclick="showScreen('creditsScreen')">
+            <div class="card-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="card-content">
+              <h3>Credits</h3>
+              <p>Developer information</p>
+            </div>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+          
+          <div class="card" onclick="logoutUser()">
+            <div class="card-icon" style="background: linear-gradient(135deg, #ff0058, #ff0000);">
+              <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <div class="card-content">
+              <h3>Logout</h3>
+              <p>Clear session and return to login</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="saii-section">
+          <div class="saii-card">
+            <button class="saii-btn" onclick="startBooster()">
+              <div class="btn-content">
+                <span class="btn-text">BOOST</span>
+                <div class="btn-arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              </div>
+              <div class="btn-pulse"></div>
+            </button>
+            <p class="info-text">Press to activate game booster • Enable features in Settings</p>
+            <p style="font-size: 11px; color: rgba(255,122,0,0.7); text-align: center; margin-top: 5px;">
+              Lifetime Access Active
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 2: Settings -->
+  <div id="settingsScreen" class="screen">
+    <div class="container">
+      <div class="header-nav">
+        <button class="back-btn" onclick="showScreen('mainScreen')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2 class="page-title">Settings</h2>
+      </div>
+      
+      <div class="settings-content">
+        <!-- PERFORMANCE MODES -->
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-tachometer-alt"></i>
+            PERFORMANCE MODES
+          </h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Performance Mode</h4>
+              <p>Maximize CPU/GPU performance</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="performance">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Game Mode</h4>
+              <p>Optimize for gaming</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="gamemode">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Battery Saver</h4>
+              <p>Save battery during gaming</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="batterysaver">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- MEMORY OPTIMIZATION -->
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-memory"></i>
+            MEMORY OPTIMIZATION
+          </h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>RAM Boost</h4>
+              <p>Free up RAM for games</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="ramboost">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Auto Clear Cache</h4>
+              <p>Clear cache when gaming</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="cacheclear">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- GRAPHICS SETTINGS -->
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-image"></i>
+            GRAPHICS SETTINGS
+          </h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>GPU Optimization</h4>
+              <p>Optimize GPU for gaming</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="gpuopt">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Reduce Graphics</h4>
+              <p>Lower graphics for better FPS</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="reducegraphics">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>HDR Mode</h4>
+              <p>Enable HDR for supported games</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="hdrmode">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- NETWORK OPTIMIZATION -->
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-wifi"></i>
+            NETWORK OPTIMIZATION
+          </h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Network Booster</h4>
+              <p>Optimize network for gaming</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="networkboost">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Reduce Ping</h4>
+              <p>Minimize game latency</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="reduceping">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- THERMAL MANAGEMENT -->
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-thermometer-half"></i>
+            THERMAL MANAGEMENT
+          </h3>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Thermal Throttling Off</h4>
+              <p>Prevent CPU throttling</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="thermaloff">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>Temperature Monitor</h4>
+              <p>Show temperature overlay</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="tempmonitor">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 3: Resolution & DPI -->
+  <div id="resolutionScreen" class="screen">
+    <div class="container">
+      <div class="header-nav">
+        <button class="back-btn" onclick="showScreen('mainScreen')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2 class="page-title">Resolution & DPI</h2>
+      </div>
+      
+      <div class="settings-content">
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-expand"></i>
+            SCREEN RESOLUTION
+          </h3>
+          
+          <div class="resolution-presets">
+            <button class="resolution-btn" onclick="setResolution('hd')">
+              <span class="res-name">HD</span>
+              <span class="res-value">720 x 1280</span>
+            </button>
+            
+            <button class="resolution-btn" onclick="setResolution('fhd')">
+              <span class="res-name">FHD</span>
+              <span class="res-value">1080 x 1920</span>
+            </button>
+            
+            <button class="resolution-btn" onclick="setResolution('qhd')">
+              <span class="res-name">QHD</span>
+              <span class="res-value">1440 x 2560</span>
+            </button>
+            
+            <button class="resolution-btn" onclick="setResolution('custom')">
+              <span class="res-name">Custom</span>
+              <span class="res-value">Set manually</span>
+            </button>
+          </div>
+          
+          <div class="custom-resolution" id="customResolution" style="display: none;">
+            <input type="number" id="resWidth" placeholder="Width" class="res-input">
+            <input type="number" id="resHeight" placeholder="Height" class="res-input">
+            <button class="apply-res-btn" onclick="applyCustomResolution()">Apply</button>
+          </div>
+        </div>
+        
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-text-height"></i>
+            DPI SETTINGS
+          </h3>
+          
+          <div class="dpi-presets">
+            <button class="dpi-btn" onclick="setDPI('low')">
+              <span class="dpi-name">Low</span>
+              <span class="dpi-value">240 DPI</span>
+            </button>
+            
+            <button class="dpi-btn" onclick="setDPI('medium')">
+              <span class="dpi-name">Medium</span>
+              <span class="dpi-value">320 DPI</span>
+            </button>
+            
+            <button class="dpi-btn" onclick="setDPI('high')">
+              <span class="dpi-name">High</span>
+              <span class="dpi-value">480 DPI</span>
+            </button>
+            
+            <button class="dpi-btn" onclick="setDPI('custom')">
+              <span class="dpi-name">Custom</span>
+              <span class="dpi-value">Set manually</span>
+            </button>
+          </div>
+          
+          <div class="custom-dpi" id="customDPI" style="display: none;">
+            <input type="number" id="dpiValue" placeholder="Enter DPI" class="dpi-input">
+            <button class="apply-dpi-btn" onclick="applyCustomDPI()">Apply</button>
+          </div>
+        </div>
+        
+        <div class="section-card">
+          <div class="warning-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Changing resolution may require device restart. Use with caution.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 4: Game Monitor -->
+  <div id="gameMonitorScreen" class="screen">
+    <div class="container">
+      <div class="header-nav">
+        <button class="back-btn" onclick="showScreen('mainScreen')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2 class="page-title">Game Monitor</h2>
+      </div>
+      
+      <div class="monitor-content">
+        <!-- Real-time Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">CPU Usage</span>
+              <span class="stat-value" id="cpuUsage">--%</span>
+            </div>
+            <div class="stat-bar">
+              <div class="bar-fill" id="cpuBar" style="width: 0%"></div>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-memory"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">RAM Usage</span>
+              <span class="stat-value" id="ramUsage">-- MB</span>
+            </div>
+            <div class="stat-bar">
+              <div class="bar-fill" id="ramBar" style="width: 0%"></div>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">FPS</span>
+              <span class="stat-value" id="fpsValue">--</span>
+            </div>
+            <div class="fps-meter">
+              <canvas id="fpsCanvas" width="200" height="60"></canvas>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-thermometer-half"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">Temperature</span>
+              <span class="stat-value" id="tempValue">--°C</span>
+            </div>
+            <div class="temp-indicator">
+              <div class="temp-bar" id="tempBar" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- GPU Info -->
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-tv"></i>
+            GPU INFORMATION
+          </h3>
+          <div class="gpu-info">
+            <div class="info-row">
+              <span>GPU Model:</span>
+              <span id="gpuModel">Adreno/Tegra/Mali</span>
+            </div>
+            <div class="info-row">
+              <span>GPU Usage:</span>
+              <span id="gpuUsage">--%</span>
+            </div>
+            <div class="info-row">
+              <span>GPU Clock:</span>
+              <span id="gpuClock">-- MHz</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Process List -->
+        <div class="section-card">
+          <h3 class="section-title">
+            <i class="fas fa-tasks"></i>
+            RUNNING PROCESSES
+          </h3>
+          <div class="process-list" id="processList">
+            <!-- Processes will be populated here -->
+          </div>
+          <button class="kill-all-btn" onclick="killBackgroundProcesses()">
+            <i class="fas fa-skull-crossbones"></i> Kill Background Processes
+          </button>
+        </div>
+        
+        <!-- Start Monitoring Button -->
+        <button class="monitor-start-btn" onclick="startMonitoring()" id="monitorBtn">
+          <i class="fas fa-play"></i> Start Monitoring
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 5: Booster Process -->
+  <div id="boosterScreen" class="screen">
+    <div class="container">
+      <div class="terminal-bg"></div>
+      
+      <div class="saii-content">
+        <div class="saii-header">
+          <div class="saii-logo">
+            <div class="logo-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <div class="logo-text">
+              <h1 class="saii-title">ROG Booster</h1>
+              <p class="saii-subtitle">Android Game Optimizer</p>
+              <p class="saii-author">by Kutoo • Lifetime Access</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="process-area">
+          <div class="process-header">
+            <div class="animated-icon">
+              <div class="icon-core">
+                <i class="fas fa-terminal"></i>
+              </div>
+              <div class="icon-ring"></div>
+              <div class="icon-pulse"></div>
+            </div>
+            <h2 class="process-title">Booster Process</h2>
+          </div>
+          
+          <div class="terminal-output">
+            <div class="terminal-line" id="line1">
+              <span class="prompt">$></span>
+              <span class="command">./rog-booster.sh --game-mode</span>
+            </div>
+            
+            <div class="terminal-line typing" id="line2">
+              <span class="prompt">$></span>
+              <span class="text" id="text2"></span>
+            </div>
+            
+            <div class="terminal-line" id="line3">
+              <span class="prompt">$></span>
+              <span class="text" id="text3"></span>
+            </div>
+            
+            <div class="terminal-line" id="line4">
+              <span class="prompt">$></span>
+              <span class="text" id="text4"></span>
+            </div>
+            
+            <div class="terminal-line" id="line5">
+              <span class="prompt">$></span>
+              <span class="text" id="text5"></span>
+            </div>
+          </div>
+          
+          <div class="terminal-progress">
+            <div class="progress-label">
+              <span>Initializing...</span>
+              <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progressBar"></div>
+              <div class="progress-glow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 6: Credits -->
+  <div id="creditsScreen" class="screen">
+    <div class="container">
+      <div class="header-nav">
+        <button class="back-btn" onclick="showScreen('mainScreen')">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2 class="page-title">Credits</h2>
+      </div>
+      
+      <div class="credits-content">
+        <div class="info-card">
+          <h4><i class="fas fa-robot"></i> Android Support</h4>
+          <p>Android 10 - 14 (Lifetime Access)</p>
+        </div>
+        
+        <div class="info-card">
+          <h4><i class="fas fa-gamepad"></i> Game Booster</h4>
+          <p>Performance optimization system</p>
+        </div>
+        
+        <div class="info-card">
+          <h4><i class="fas fa-expand"></i> Resolution Changer</h4>
+          <p>Custom resolution & DPI settings</p>
+        </div>
+        
+        <div class="info-card">
+          <h4><i class="fas fa-chart-line"></i> Real-time Monitor</h4>
+          <p>FPS, CPU, GPU, RAM monitoring</p>
+        </div>
+        
+        <div class="info-card">
+          <h4><i class="fas fa-key"></i> Access Key System</h4>
+          <p>Lifetime access keys</p>
+        </div>
+        
+        <div class="disclaimer">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p>This tool requires root access for some features. Use at your own risk.</p>
+        </div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+          <button onclick="clearSession()" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ff0058, #ff0000); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+            <i class="fas fa-sign-out-alt"></i> Clear Session
+          </button>
+          <button onclick="location.reload()" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #ff7a00, #ff5500); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+            <i class="fas fa-sync-alt"></i> Reload App
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="notification" class="notification">
+    <div class="notification-icon">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    <span id="notificationText"></span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
